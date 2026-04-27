@@ -1,1 +1,2017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worker Health & Productivity Survey | গার্মেন্টস শ্রমিক স্বাস্থ্য জরিপ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&family=Hind+Siliguri:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-900: #0a2e1a;
+    --green-800: #0f4229;
+    --green-700: #175c38;
+    --green-600: #1e7a4b;
+    --green-500: #27a060;
+    --green-400: #3ec47c;
+    --green-100: #d4f5e4;
+    --green-50:  #edfaf3;
+    --teal-600:  #0e6e6e;
+    --teal-400:  #1db8b8;
+    --amber-500: #e8a020;
+    --amber-100: #fef3d0;
+    --red-500:   #d94040;
+    --red-100:   #fde8e8;
+    --ink:       #1a1f1c;
+    --ink-light: #3d4740;
+    --muted:     #6b7870;
+    --border:    #d0ddd6;
+    --surface:   #f4f9f6;
+    --white:     #ffffff;
+    --radius:    12px;
+    --radius-sm: 8px;
+  }
 
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ─── Header ─────────────────────────────── */
+  .site-header {
+    background: var(--green-800);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  }
+  .header-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .header-badge {
+    background: var(--green-500);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+  .header-title {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  .header-title span {
+    display: block;
+    font-size: 11px;
+    opacity: 0.65;
+    font-family: 'Hind Siliguri', sans-serif;
+    font-weight: 300;
+    margin-top: 1px;
+  }
+
+  /* ─── Progress ────────────────────────────── */
+  .progress-wrap {
+    background: var(--green-900);
+    padding: 10px 20px;
+    max-width: 100%;
+  }
+  .progress-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 6px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+  .progress-bar-bg {
+    height: 4px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--green-400);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* ─── Hero ────────────────────────────────── */
+  .hero {
+    background: linear-gradient(135deg, var(--green-800) 0%, var(--green-600) 100%);
+    padding: 48px 20px 40px;
+    text-align: center;
+  }
+  .hero-label {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.9);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    color: #fff;
+    font-size: clamp(22px, 4vw, 32px);
+    font-weight: 400;
+    line-height: 1.25;
+    margin-bottom: 8px;
+  }
+  .hero-bangla {
+    font-family: 'Hind Siliguri', sans-serif;
+    color: var(--green-100);
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 18px;
+  }
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    color: rgba(255,255,255,0.75);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .hero-meta-item::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green-400);
+  }
+
+  /* ─── Consent banner ──────────────────────── */
+  .consent-banner {
+    max-width: 760px;
+    margin: 24px auto 0;
+    padding: 0 20px;
+  }
+  .consent-box {
+    background: var(--amber-100);
+    border: 1px solid var(--amber-500);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+  }
+  .consent-box h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #7a5000;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .consent-box p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: #5a3800;
+    margin-bottom: 10px;
+  }
+  .consent-box p.bangla {
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 13px;
+  }
+  .consent-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+  }
+  .consent-check input[type="checkbox"] {
+    width: 18px; height: 18px;
+    margin-top: 1px;
+    accent-color: var(--green-600);
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .consent-check span {
+    font-size: 13px;
+    font-weight: 500;
+    color: #5a3800;
+    line-height: 1.5;
+  }
+
+  /* ─── Main form ───────────────────────────── */
+  .form-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 24px 20px 60px;
+  }
+
+  /* ─── Section ─────────────────────────────── */
+  .section {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .section-header {
+    padding: 18px 24px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--green-50);
+  }
+  .section-num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--green-700);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--green-800);
+    line-height: 1.2;
+  }
+  .section-title-bn {
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 13px;
+    color: var(--teal-600);
+    font-weight: 400;
+    display: block;
+    margin-top: 1px;
+  }
+  .section-body {
+    padding: 20px 24px;
+    display: grid;
+    gap: 18px;
+  }
+
+  /* ─── Question ────────────────────────────── */
+  .q {
+    display: grid;
+    gap: 7px;
+  }
+  .q-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 520px) {
+    .q-row { grid-template-columns: 1fr; }
+    .section-body { padding: 16px; }
+    .section-header { padding: 14px 16px 12px; }
+  }
+  .q label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .q label .bn {
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 400;
+    display: block;
+    margin-top: 1px;
+  }
+  .q label .req {
+    color: var(--red-500);
+    margin-left: 2px;
+  }
+  .q input[type="text"],
+  .q input[type="number"],
+  .q input[type="email"],
+  .q select,
+  .q textarea {
+    width: 100%;
+    padding: 10px 13px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    background: var(--white);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+  }
+  .q select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7870' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+  .q input:focus,
+  .q select:focus,
+  .q textarea:focus {
+    border-color: var(--green-500);
+    box-shadow: 0 0 0 3px rgba(39,160,96,0.12);
+  }
+  .q input.error,
+  .q select.error {
+    border-color: var(--red-500);
+    box-shadow: 0 0 0 3px rgba(217,64,64,0.1);
+  }
+  .q textarea {
+    resize: vertical;
+    min-height: 72px;
+    line-height: 1.6;
+  }
+  .q .hint {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ─── Illness accordion ─────────────────────── */
+  .illness-wrap { display: grid; gap: 8px; }
+  .ill-cat {
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .ill-cat-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 11px 14px; cursor: pointer;
+    background: var(--surface);
+    transition: background 0.15s;
+    user-select: none;
+  }
+  .ill-cat-header:hover { background: #e8eef6; }
+  .ill-cat-header.open { background: var(--green-50); border-bottom: 1px solid var(--border); }
+  .ill-cat-dot {
+    width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+  }
+  .ill-cat-label { font-size: 13px; font-weight: 600; color: var(--ink); flex: 1; }
+  .ill-cat-label .bn { font-family: 'Hind Siliguri', sans-serif; font-size: 11px; color: var(--muted); font-weight: 400; }
+  .ill-cat-count {
+    font-size: 11px; font-weight: 600; color: var(--green-600);
+    background: var(--green-50); border: 1px solid var(--green-100);
+    padding: 2px 8px; border-radius: 12px; min-width: 28px; text-align: center;
+  }
+  .ill-cat-arrow { font-size: 10px; color: var(--muted); transition: transform 0.2s; }
+  .ill-cat-header.open .ill-cat-arrow { transform: rotate(180deg); }
+  .ill-cat-body {
+    display: none; padding: 12px 14px 14px;
+    background: var(--white);
+  }
+  .ill-cat-body.open { display: block; }
+  .ill-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 6px;
+  }
+  .ill-pill {
+    display: flex; align-items: center; gap: 7px;
+    padding: 6px 10px; border: 1.5px solid var(--border);
+    border-radius: 20px; cursor: pointer; font-size: 12px;
+    color: var(--ink); background: var(--white);
+    transition: all 0.12s; user-select: none;
+    line-height: 1.3;
+  }
+  .ill-pill:hover { border-color: var(--green-500); background: var(--green-50); }
+  .ill-pill.selected { border-color: var(--green-600); background: var(--green-50); color: var(--green-800); font-weight: 500; }
+  .ill-pill input { accent-color: var(--green-600); width: 13px; height: 13px; flex-shrink: 0; }
+  .ill-pill .bn-sm { font-family: 'Hind Siliguri', sans-serif; font-size: 10px; color: var(--muted); display: block; margin-top: 1px; }
+  .ill-female-note {
+    font-size: 11px; color: #7a5000; background: var(--amber-100);
+    border: 1px solid var(--amber-500); border-radius: 6px;
+    padding: 6px 10px; margin-bottom: 8px;
+    font-family: 'Hind Siliguri', sans-serif;
+  }
+  @media (max-width: 520px) {
+    .ill-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ─── Radio / Checkbox group ──────────────── */
+  .radio-group, .check-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .radio-group.col, .check-group.col {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .radio-pill, .check-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 13px;
+    color: var(--ink);
+    background: var(--white);
+    user-select: none;
+  }
+  .radio-pill:hover, .check-pill:hover {
+    border-color: var(--green-500);
+    background: var(--green-50);
+  }
+  .radio-pill input, .check-pill input {
+    accent-color: var(--green-600);
+    width: 15px; height: 15px;
+  }
+  .radio-pill.selected, .check-pill.selected {
+    border-color: var(--green-600);
+    background: var(--green-50);
+    color: var(--green-800);
+    font-weight: 500;
+  }
+
+  /* ─── Likert scale ────────────────────────── */
+  .likert-wrap {
+    display: grid;
+    gap: 4px;
+  }
+  .likert-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--muted);
+    padding: 0 2px;
+    margin-bottom: 2px;
+  }
+  .likert-row {
+    display: flex;
+    gap: 6px;
+  }
+  .likert-opt {
+    flex: 1;
+    text-align: center;
+  }
+  .likert-opt input { display: none; }
+  .likert-opt label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    background: var(--white);
+  }
+  .likert-opt input:checked + label {
+    background: var(--green-700);
+    border-color: var(--green-700);
+    color: #fff;
+  }
+  .likert-opt label:hover {
+    border-color: var(--green-500);
+    background: var(--green-50);
+    color: var(--green-800);
+  }
+
+  /* ─── BMI helper ──────────────────────────── */
+  .bmi-display {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--green-50);
+    border: 1px solid var(--green-100);
+    border-radius: var(--radius-sm);
+    padding: 7px 12px;
+    font-size: 13px;
+    color: var(--green-800);
+    margin-top: 4px;
+    min-width: 160px;
+  }
+  .bmi-display span { font-weight: 600; }
+
+  /* ─── Submit section ──────────────────────── */
+  .submit-section {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 28px 24px;
+    text-align: center;
+  }
+  .submit-section p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  .submit-section p .bn {
+    font-family: 'Hind Siliguri', sans-serif;
+    display: block;
+    margin-top: 4px;
+  }
+  .btn-submit {
+    background: var(--green-700);
+    color: #fff;
+    border: none;
+    padding: 14px 48px;
+    border-radius: 40px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    letter-spacing: 0.02em;
+  }
+  .btn-submit:hover { background: var(--green-600); }
+  .btn-submit:active { transform: scale(0.98); }
+  .btn-submit:disabled {
+    background: var(--border);
+    color: var(--muted);
+    cursor: not-allowed;
+  }
+
+  /* ─── Success overlay (full-screen, temporary) ─── */
+  #success-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 66, 41, 0.92);
+    z-index: 500;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  #success-overlay.show { display: flex; }
+  .success-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 44px 36px;
+    text-align: center;
+    max-width: 420px;
+    width: 100%;
+    animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+  @keyframes popIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to   { transform: scale(1);   opacity: 1; }
+  }
+  .success-icon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--green-50);
+    border: 2px solid var(--green-400);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+    font-size: 28px;
+  }
+  .success-card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--green-800);
+    margin-bottom: 6px;
+  }
+  .success-card .bn-h {
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 15px;
+    color: var(--teal-600);
+    margin-bottom: 14px;
+  }
+  .success-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .ref-box {
+    background: var(--green-50);
+    border: 1px solid var(--green-100);
+    border-radius: var(--radius-sm);
+    padding: 10px 16px;
+    font-size: 12px;
+    color: var(--green-800);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  .ref-box span { font-weight: 700; font-size: 14px; }
+  .countdown-bar-bg {
+    height: 4px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .countdown-bar-fill {
+    height: 100%;
+    background: var(--green-500);
+    border-radius: 4px;
+    width: 100%;
+    transition: width linear;
+  }
+  .countdown-msg {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* ─── Error toast ─────────────────────────── */
+  #toast {
+    position: fixed;
+    bottom: 24px; left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--red-500);
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 40px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: transform 0.3s;
+    z-index: 999;
+    white-space: nowrap;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+  #toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ─── Footer ──────────────────────────────── */
+  .site-footer {
+    background: var(--green-900);
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    padding: 20px;
+    font-size: 11px;
+    line-height: 1.8;
+  }
+  .site-footer a { color: var(--green-400); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────────────── -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-badge">Research</div>
+    <div class="header-title">
+      XAI for Worker Health &amp; Productivity
+      <span>গার্মেন্টস শ্রমিক স্বাস্থ্য ও উৎপাদনশীলতা জরিপ</span>
+    </div>
+  </div>
+</header>
+
+<!-- ── Progress bar ───────────────────────────────── -->
+<div class="progress-wrap">
+  <div class="progress-inner">
+    <div class="progress-labels">
+      <span>Start</span>
+      <span>Demographics</span>
+      <span>Work</span>
+      <span>Health</span>
+      <span>Done</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Hero ──────────────────────────────────────── -->
+<div class="hero">
+  <div class="hero-label">Confidential · Anonymous</div>
+  <h1>Worker Health &amp; Productivity Survey</h1>
+  <p class="hero-bangla">শ্রমিক স্বাস্থ্য ও উৎপাদনশীলতা জরিপ</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">~12 minutes to complete</div>
+    <div class="hero-meta-item">Your identity is protected</div>
+    <div class="hero-meta-item">For academic research only</div>
+  </div>
+</div>
+
+<!-- ── Consent ────────────────────────────────────── -->
+<div class="consent-banner">
+  <div class="consent-box">
+    <h3>&#9888; Informed Consent | সম্মতি</h3>
+    <p>This survey is conducted for academic research on occupational health in Bangladesh's garment industry. Your participation is <strong>completely voluntary</strong>. All answers are <strong>anonymous and confidential</strong> — your name is never recorded. Data will only be used for the research study and will be stored securely.</p>
+    <p class="bangla">এই জরিপটি বাংলাদেশের পোশাক শিল্পে পেশাগত স্বাস্থ্য নিয়ে একটি একাডেমিক গবেষণার জন্য পরিচালিত হচ্ছে। আপনার অংশগ্রহণ সম্পূর্ণ স্বেচ্ছামূলক এবং আপনার তথ্য সম্পূর্ণ গোপনীয়।</p>
+    <label class="consent-check">
+      <input type="checkbox" id="consentCheck" onchange="checkConsent()">
+      <span>I understand and agree to participate in this research. | আমি বুঝতে পেরেছি এবং অংশগ্রহণে সম্মত আছি।</span>
+    </label>
+  </div>
+</div>
+
+<!-- ── Main form ──────────────────────────────────── -->
+<div class="form-wrap" id="mainForm" style="display:none;">
+<form id="surveyForm" novalidate>
+
+  <!-- ─ SECTION A: Demographics ─ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">A</div>
+      <div>
+        <div class="section-title">Demographics
+          <span class="section-title-bn">ব্যক্তিগত তথ্য</span>
+        </div>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="q-row">
+        <div class="q">
+          <label>Age (years) <span class="req">*</span><span class="bn">বয়স (বছর)</span></label>
+          <input type="number" name="age" min="16" max="65" placeholder="e.g. 28" required>
+        </div>
+        <div class="q">
+          <label>Sex <span class="req">*</span><span class="bn">লিঙ্গ</span></label>
+          <select name="sex" required>
+            <option value="">— Select / নির্বাচন করুন —</option>
+            <option value="Female">Female / মহিলা</option>
+            <option value="Male">Male / পুরুষ</option>
+            <option value="Other">Other / অন্যান্য</option>
+            <option value="Prefer not to say">Prefer not to say</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="q-row">
+        <div class="q">
+          <label>Height (cm) <span class="req">*</span><span class="bn">উচ্চতা (সেমি)</span></label>
+          <input type="number" name="height_cm" id="heightInput" min="130" max="200" placeholder="e.g. 155" required oninput="calcBMI()">
+        </div>
+        <div class="q">
+          <label>Weight (kg) <span class="req">*</span><span class="bn">ওজন (কেজি)</span></label>
+          <input type="number" name="weight_kg" id="weightInput" min="30" max="150" placeholder="e.g. 52" required oninput="calcBMI()">
+          <div class="bmi-display" id="bmiDisplay">BMI: <span id="bmiValue">—</span></div>
+        </div>
+      </div>
+
+      <div class="q" id="bmiField" style="display:none;">
+        <input type="hidden" name="bmi" id="bmiHidden">
+      </div>
+
+      <div class="q-row">
+        <div class="q">
+          <label>Total years working in RMG industry <span class="req">*</span><span class="bn">পোশাক শিল্পে মোট কর্মবছর</span></label>
+          <input type="number" name="rmg_experience_years" min="0" max="40" placeholder="e.g. 5" required>
+        </div>
+        <div class="q">
+          <label>Years at current factory <span class="req">*</span><span class="bn">বর্তমান কারখানায় কর্মবছর</span></label>
+          <input type="number" name="current_factory_years" min="0" max="40" placeholder="e.g. 2" required>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>Highest education level completed <span class="req">*</span><span class="bn">সর্বোচ্চ শিক্ষাগত যোগ্যতা</span></label>
+        <select name="education" required>
+          <option value="">— Select / নির্বাচন করুন —</option>
+          <option value="No formal education">No formal education / কোনো আনুষ্ঠানিক শিক্ষা নেই</option>
+          <option value="Primary (Class 1-5)">Primary / প্রাথমিক (১ম–৫ম শ্রেণি)</option>
+          <option value="Junior Secondary (Class 6-8)">Junior secondary / নিম্ন মাধ্যমিক (৬ষ্ঠ–৮ম)</option>
+          <option value="SSC or equivalent">SSC or equivalent / এসএসসি বা সমমান</option>
+          <option value="HSC or equivalent">HSC or equivalent / এইচএসসি বা সমমান</option>
+          <option value="Degree or above">Degree or above / স্নাতক বা তার উপরে</option>
+        </select>
+      </div>
+
+      <div class="q">
+        <label>Marital status <span class="req">*</span><span class="bn">বৈবাহিক অবস্থা</span></label>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="marital_status" value="Single"> Single / অবিবাহিত</label>
+          <label class="radio-pill"><input type="radio" name="marital_status" value="Married"> Married / বিবাহিত</label>
+          <label class="radio-pill"><input type="radio" name="marital_status" value="Divorced"> Divorced / তালাকপ্রাপ্ত</label>
+          <label class="radio-pill"><input type="radio" name="marital_status" value="Widowed"> Widowed / বিধবা/বিপত্নীক</label>
+          <label class="radio-pill"><input type="radio" name="marital_status" value="Separated"> Separated / বিচ্ছিন্ন</label>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>Number of dependants (children or family members you support) <span class="bn">নির্ভরশীল সদস্য সংখ্যা (সন্তান বা পরিবারের যাদের ভরণপোষণ করেন)</span></label>
+        <select name="dependants">
+          <option value="">— Select / নির্বাচন করুন —</option>
+          <option value="0">0 — No dependants / কোনো নির্ভরশীল নেই</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5+">5 or more / ৫ বা তার বেশি</option>
+        </select>
+      </div>
+
+      <div class="q">
+        <label>Monthly income range (BDT) <span class="req">*</span><span class="bn">মাসিক আয়ের পরিসর (টাকা)</span></label>
+        <div class="hint">Your answer is anonymous — no name or ID is recorded / আপনার উত্তর সম্পূর্ণ বেনামী</div>
+        <select name="monthly_income_bdt" required>
+          <option value="">— Select / নির্বাচন করুন —</option>
+          <option value="Below 8000">Below ৳8,000 / ৮,০০০ টাকার কম</option>
+          <option value="8000–12000">৳8,000 – 12,000 / ৮,০০০–১২,০০০ টাকা</option>
+          <option value="12001–18000">৳12,001 – 18,000 / ১২,০০১–১৮,০০০ টাকা</option>
+          <option value="18001–25000">৳18,001 – 25,000 / ১৮,০০১–২৫,০০০ টাকা</option>
+          <option value="Above 25000">Above ৳25,000 / ২৫,০০০ টাকার বেশি</option>
+          <option value="Prefer not to say">Prefer not to say / বলতে চাই না</option>
+        </select>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─ SECTION B: Work Conditions ─ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">B</div>
+      <div>
+        <div class="section-title">Work Conditions
+          <span class="section-title-bn">কাজের পরিবেশ ও শর্তাবলি</span>
+        </div>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="q">
+        <label>Your job section / department <span class="req">*</span><span class="bn">আপনার কাজের বিভাগ</span></label>
+        <select name="job_section" required>
+          <option value="">— Select / নির্বাচন করুন —</option>
+          <option value="Sewing">Sewing / সেলাই</option>
+          <option value="Cutting">Cutting / কাটিং</option>
+          <option value="Finishing">Finishing / ফিনিশিং</option>
+          <option value="Quality Control">Quality Control / মান নিয়ন্ত্রণ</option>
+          <option value="Washing">Washing / ওয়াশিং</option>
+          <option value="Embroidery/Printing">Embroidery / Printing / এমব্রয়ডারি/প্রিন্টিং</option>
+          <option value="Packing">Packing / প্যাকিং</option>
+          <option value="Supervisory">Supervisory / সুপারভাইজরি</option>
+          <option value="Other">Other / অন্যান্য</option>
+        </select>
+      </div>
+
+      <div class="q-row">
+        <div class="q">
+          <label>Shift type <span class="req">*</span><span class="bn">শিফটের ধরন</span></label>
+          <select name="shift_type" required>
+            <option value="">— Select —</option>
+            <option value="Day shift (6am–2pm)">Day shift / দিনের শিফট (সকাল ৬টা–দুপুর ২টা)</option>
+            <option value="Day shift (8am–5pm)">Day shift / দিনের শিফট (সকাল ৮টা–বিকেল ৫টা)</option>
+            <option value="Evening shift">Evening shift / সন্ধ্যা শিফট</option>
+            <option value="Night shift">Night shift / রাতের শিফট</option>
+            <option value="Rotating shifts">Rotating / রোটেটিং শিফট</option>
+          </select>
+        </div>
+        <div class="q">
+          <label>Regular daily work hours <span class="req">*</span><span class="bn">প্রতিদিন নিয়মিত কাজের ঘণ্টা</span></label>
+          <input type="number" name="daily_work_hours" min="4" max="16" placeholder="e.g. 8" required>
+        </div>
+      </div>
+
+      <div class="q-row">
+        <div class="q">
+          <label>Average overtime hours per week <span class="req">*</span><span class="bn">সাপ্তাহিক গড় ওভারটাইম ঘণ্টা</span></label>
+          <input type="number" name="weekly_overtime_hours" min="0" max="40" placeholder="e.g. 10" required>
+        </div>
+        <div class="q">
+          <label>Rest / break time per day (minutes) <span class="req">*</span><span class="bn">প্রতিদিন বিশ্রামের সময় (মিনিট)</span></label>
+          <input type="number" name="daily_break_minutes" min="0" max="120" placeholder="e.g. 60" required>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>How hot is your workstation on most days? <span class="req">*</span><span class="bn">কর্মস্থলে তাপমাত্রা সাধারণত কেমন?</span></label>
+        <div class="likert-wrap">
+          <div class="likert-labels"><span>Very cool / খুব ঠান্ডা</span><span>Very hot / খুব গরম</span></div>
+          <div class="likert-row">
+            <div class="likert-opt"><input type="radio" name="heat_level" value="1" id="h1"><label for="h1">1</label></div>
+            <div class="likert-opt"><input type="radio" name="heat_level" value="2" id="h2"><label for="h2">2</label></div>
+            <div class="likert-opt"><input type="radio" name="heat_level" value="3" id="h3"><label for="h3">3</label></div>
+            <div class="likert-opt"><input type="radio" name="heat_level" value="4" id="h4"><label for="h4">4</label></div>
+            <div class="likert-opt"><input type="radio" name="heat_level" value="5" id="h5"><label for="h5">5</label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>How noisy is your workstation on most days? <span class="req">*</span><span class="bn">কর্মস্থলে শব্দ দূষণের মাত্রা সাধারণত কেমন?</span></label>
+        <div class="likert-wrap">
+          <div class="likert-labels"><span>Very quiet / খুব শান্ত</span><span>Very loud / খুব জোরে</span></div>
+          <div class="likert-row">
+            <div class="likert-opt"><input type="radio" name="noise_level" value="1" id="n1"><label for="n1">1</label></div>
+            <div class="likert-opt"><input type="radio" name="noise_level" value="2" id="n2"><label for="n2">2</label></div>
+            <div class="likert-opt"><input type="radio" name="noise_level" value="3" id="n3"><label for="n3">3</label></div>
+            <div class="likert-opt"><input type="radio" name="noise_level" value="4" id="n4"><label for="n4">4</label></div>
+            <div class="likert-opt"><input type="radio" name="noise_level" value="5" id="n5"><label for="n5">5</label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-row">
+        <div class="q">
+          <label>Your main work posture during most of your shift <span class="req">*</span><span class="bn">শিফটের বেশিরভাগ সময় আপনার শরীরের অবস্থান</span></label>
+          <select name="work_posture" required>
+            <option value="">— Select / নির্বাচন করুন —</option>
+            <option value="Sitting (fixed)">Sitting, fixed position / স্থির বসে</option>
+            <option value="Sitting (varied)">Sitting, position changes / বসা, ভঙ্গি বদলায়</option>
+            <option value="Standing (fixed)">Standing, fixed position / স্থির দাঁড়িয়ে</option>
+            <option value="Standing and moving">Standing and moving / দাঁড়িয়ে ও চলাফেরা</option>
+          </select>
+        </div>
+        <div class="q">
+          <label>Do your hands or arms make the same movement repeatedly? <span class="req">*</span><span class="bn">হাত বা বাহু কি একই নড়াচড়া বারবার করে?</span></label>
+          <select name="repetitive_movement" required>
+            <option value="">— Select / নির্বাচন করুন —</option>
+            <option value="Yes, most of the shift">Yes, most of the shift / হ্যাঁ, বেশিরভাগ সময়</option>
+            <option value="Yes, about half the shift">Yes, about half / হ্যাঁ, প্রায় অর্ধেক সময়</option>
+            <option value="Sometimes">Sometimes / মাঝেমাঝে</option>
+            <option value="Rarely or never">Rarely or never / বিরলে বা কখনোই না</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>How long is your one-way commute to work? <span class="req">*</span><span class="bn">কর্মস্থলে একমুখী যাতায়াতে কত সময় লাগে?</span></label>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="commute_time" value="Under 30 min"> Under 30 min / ৩০ মিনিটের কম</label>
+          <label class="radio-pill"><input type="radio" name="commute_time" value="30–60 min"> 30–60 min / ৩০–৬০ মিনিট</label>
+          <label class="radio-pill"><input type="radio" name="commute_time" value="1–2 hours"> 1–2 hours / ১–২ ঘণ্টা</label>
+          <label class="radio-pill"><input type="radio" name="commute_time" value="Over 2 hours"> Over 2 hours / ২ ঘণ্টার বেশি</label>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>Do you wear any personal protective equipment (PPE)? <span class="bn">আপনি কি ব্যক্তিগত সুরক্ষা সরঞ্জাম ব্যবহার করেন?</span></label>
+        <div class="check-group">
+          <label class="check-pill"><input type="checkbox" name="ppe" value="Ear protection"> Ear protection / কানের সুরক্ষা</label>
+          <label class="check-pill"><input type="checkbox" name="ppe" value="Gloves"> Gloves / গ্লাভস</label>
+          <label class="check-pill"><input type="checkbox" name="ppe" value="Face mask"> Face mask / মাস্ক</label>
+          <label class="check-pill"><input type="checkbox" name="ppe" value="Eye protection"> Eye protection / চোখের সুরক্ষা</label>
+          <label class="check-pill"><input type="checkbox" name="ppe" value="None"> None / কোনোটি না</label>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>How satisfied are you with your working conditions overall? <span class="req">*</span><span class="bn">সার্বিকভাবে আপনি কর্মপরিবেশে কতটা সন্তুষ্ট?</span></label>
+        <div class="likert-wrap">
+          <div class="likert-labels"><span>Very dissatisfied / খুব অসন্তুষ্ট</span><span>Very satisfied / খুব সন্তুষ্ট</span></div>
+          <div class="likert-row">
+            <div class="likert-opt"><input type="radio" name="work_satisfaction" value="1" id="ws1"><label for="ws1">1</label></div>
+            <div class="likert-opt"><input type="radio" name="work_satisfaction" value="2" id="ws2"><label for="ws2">2</label></div>
+            <div class="likert-opt"><input type="radio" name="work_satisfaction" value="3" id="ws3"><label for="ws3">3</label></div>
+            <div class="likert-opt"><input type="radio" name="work_satisfaction" value="4" id="ws4"><label for="ws4">4</label></div>
+            <div class="likert-opt"><input type="radio" name="work_satisfaction" value="5" id="ws5"><label for="ws5">5</label></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─ SECTION C: Health Status (v3 — full illness coverage) ─ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">C</div>
+      <div>
+        <div class="section-title">Health Status
+          <span class="section-title-bn">স্বাস্থ্যের অবস্থা</span>
+        </div>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <!-- C1: Musculoskeletal -->
+      <div class="q">
+        <label>C1. In the past 6 months, which body parts have caused pain or discomfort? (Select all) <span class="bn">গত ৬ মাসে শরীরের কোন অংশে ব্যথা বা অস্বস্তি হয়েছে?</span></label>
+        <div class="check-group">
+          <label class="check-pill"><input type="checkbox" name="pain_area" value="Neck"> Neck / ঘাড়</label>
+          <label class="check-pill"><input type="checkbox" name="pain_area" value="Shoulder"> Shoulder / কাঁধ</label>
+          <label class="check-pill"><input type="checkbox" name="pain_area" value="Upper back"> Upper back / উপরের পিঠ</label>
+          <label class="check-pill"><input type="checkbox" name="pain_area" value="Lower back"> Lower back / নিচের পিঠ</label>
+          <label class="check-pill"><input type="checkbox" name="pain_area" value="Wrist/Hand"> Wrist / Hand / কব্জি/হাত</label>
+          <label class="check-pill"><input type="checkbox" name="pain_area" value="Elbow"> Elbow / কনুই</label>
+          <label class="check-pill"><input type="checkbox" name="pain_area" value="Knee"> Knee / হাঁটু</label>
+          <label class="check-pill"><input type="checkbox" name="pain_area" value="Foot/Ankle"> Foot / Ankle / পা/গোড়ালি</label>
+          <label class="check-pill"><input type="checkbox" name="pain_area" value="Eyes"> Eyes / চোখ</label>
+          <label class="check-pill"><input type="checkbox" name="pain_area" value="None"> No pain / কোনো ব্যথা নেই</label>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>Overall pain level right now <span class="req">*</span><span class="bn">এই মুহূর্তে সার্বিক ব্যথার মাত্রা</span></label>
+        <div class="likert-wrap">
+          <div class="likert-labels"><span>1 = No pain / ব্যথা নেই</span><span>5 = Severe / তীব্র</span></div>
+          <div class="likert-row">
+            <div class="likert-opt"><input type="radio" name="pain_level" value="1" id="p1"><label for="p1">1</label></div>
+            <div class="likert-opt"><input type="radio" name="pain_level" value="2" id="p2"><label for="p2">2</label></div>
+            <div class="likert-opt"><input type="radio" name="pain_level" value="3" id="p3"><label for="p3">3</label></div>
+            <div class="likert-opt"><input type="radio" name="pain_level" value="4" id="p4"><label for="p4">4</label></div>
+            <div class="likert-opt"><input type="radio" name="pain_level" value="5" id="p5"><label for="p5">5</label></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- C2: Respiratory -->
+      <div class="q">
+        <label>C2. In the past month, how often did you experience any of these breathing symptoms? <span class="req">*</span><span class="bn">গত মাসে শ্বাস-প্রশ্বাসের কোনো সমস্যা কতবার হয়েছে?</span></label>
+        <div class="hint">Cough, wheezing, shortness of breath, chest tightness / কাশি, শোঁ শোঁ শব্দ, শ্বাসকষ্ট, বুকে চাপ</div>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="resp_symptom_freq" value="Never"> Never / কখনোই না</label>
+          <label class="radio-pill"><input type="radio" name="resp_symptom_freq" value="1–2 days"> 1–2 days / ১–২ দিন</label>
+          <label class="radio-pill"><input type="radio" name="resp_symptom_freq" value="1–2 times a week"> 1–2 times/week / সপ্তাহে ১–২ বার</label>
+          <label class="radio-pill"><input type="radio" name="resp_symptom_freq" value="Most days"> Most days / বেশিরভাগ দিন</label>
+          <label class="radio-pill"><input type="radio" name="resp_symptom_freq" value="Every day"> Every day / প্রতিদিন</label>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>Are your breathing symptoms worse at work than at home or on days off? <span class="req">*</span><span class="bn">কাজের সময় কি শ্বাসের সমস্যা বাড়ে?</span></label>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="resp_worse_at_work" value="Yes, clearly worse at work"> Yes, clearly worse at work / হ্যাঁ, কাজে স্পষ্টভাবে বাড়ে</label>
+          <label class="radio-pill"><input type="radio" name="resp_worse_at_work" value="Slightly worse at work"> Slightly worse / সামান্য বাড়ে</label>
+          <label class="radio-pill"><input type="radio" name="resp_worse_at_work" value="Same at work and home"> Same everywhere / একই থাকে</label>
+          <label class="radio-pill"><input type="radio" name="resp_worse_at_work" value="No breathing symptoms"> No symptoms / সমস্যা নেই</label>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>Do you work near dust, lint, fibres, or chemical fumes? <span class="req">*</span><span class="bn">ধুলো, আঁশ বা রাসায়নিক ধোঁয়ার কাছে কাজ করেন?</span></label>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="dust_exposure" value="Yes, daily and heavily"> Yes, daily and heavily / হ্যাঁ, প্রতিদিন ও প্রচুর</label>
+          <label class="radio-pill"><input type="radio" name="dust_exposure" value="Yes, daily but mild"> Yes, daily but mild / হ্যাঁ, প্রতিদিন তবে কম</label>
+          <label class="radio-pill"><input type="radio" name="dust_exposure" value="Sometimes"> Sometimes / মাঝেমাঝে</label>
+          <label class="radio-pill"><input type="radio" name="dust_exposure" value="No"> No / না</label>
+        </div>
+      </div>
+
+      <!-- C3: Heat-related illness -->
+      <div class="q">
+        <label>C3. In the past 3 months, how often did you feel dizzy, faint, or nauseous due to heat at work? <span class="req">*</span><span class="bn">গত ৩ মাসে গরমের কারণে কতবার মাথা ঘুরেছে বা বমি বমি লেগেছে?</span></label>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="heat_illness_freq" value="Never"> Never / কখনোই না</label>
+          <label class="radio-pill"><input type="radio" name="heat_illness_freq" value="Once or twice"> Once or twice / ১–২ বার</label>
+          <label class="radio-pill"><input type="radio" name="heat_illness_freq" value="Monthly"> Monthly / মাসে একবার</label>
+          <label class="radio-pill"><input type="radio" name="heat_illness_freq" value="Weekly"> Weekly / সপ্তাহে একবার</label>
+          <label class="radio-pill"><input type="radio" name="heat_illness_freq" value="Several times a week"> Several times/week / সপ্তাহে কয়েকবার</label>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>Have you ever fainted or collapsed at work due to heat? <span class="req">*</span><span class="bn">গরমের কারণে কি কখনো কর্মস্থলে অজ্ঞান বা পড়ে গেছেন?</span></label>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="heat_fainted" value="Yes, in the past 12 months"> Yes, past 12 months / হ্যাঁ, গত ১২ মাসে</label>
+          <label class="radio-pill"><input type="radio" name="heat_fainted" value="Yes, more than a year ago"> Yes, over 1 year ago / হ্যাঁ, ১ বছরের আগে</label>
+          <label class="radio-pill"><input type="radio" name="heat_fainted" value="No, never"> No, never / না, কখনোই না</label>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>How often do you feel you are not drinking enough water during your shift? <span class="req">*</span><span class="bn">শিফটে পর্যাপ্ত পানি পান করতে পারেন না — এমন কতবার হয়?</span></label>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="dehydration_freq" value="Never — water always available"> Never — water always available / কখনোই না</label>
+          <label class="radio-pill"><input type="radio" name="dehydration_freq" value="Sometimes"> Sometimes / মাঝেমাঝে</label>
+          <label class="radio-pill"><input type="radio" name="dehydration_freq" value="Most days"> Most days / বেশিরভাগ দিন</label>
+          <label class="radio-pill"><input type="radio" name="dehydration_freq" value="Every day"> Every day / প্রতিদিন</label>
+        </div>
+      </div>
+
+      <!-- C4: Skin conditions -->
+      <div class="q">
+        <label>C4. In the past 6 months, have you experienced any skin problems? (Select all that apply) <span class="bn">গত ৬ মাসে ত্বকের কোনো সমস্যা হয়েছে?</span></label>
+        <div class="check-group">
+          <label class="check-pill"><input type="checkbox" name="skin_symptoms" value="Rash or itching"> Rash / itching / র‍্যাশ বা চুলকানি</label>
+          <label class="check-pill"><input type="checkbox" name="skin_symptoms" value="Redness or swelling"> Redness / swelling / লালভাব বা ফোলা</label>
+          <label class="check-pill"><input type="checkbox" name="skin_symptoms" value="Dry or cracked skin"> Dry / cracked skin / শুষ্ক বা ফাটা ত্বক</label>
+          <label class="check-pill"><input type="checkbox" name="skin_symptoms" value="Chemical burn or stain"> Chemical burn / stain / রাসায়নিক পোড়া</label>
+          <label class="check-pill"><input type="checkbox" name="skin_symptoms" value="Blisters or sores"> Blisters / sores / ফোসকা বা ঘা</label>
+          <label class="check-pill"><input type="checkbox" name="skin_symptoms" value="None"> No skin problems / কোনো সমস্যা নেই</label>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>Do you handle chemical dyes, detergents, or fabric finishing agents directly? <span class="req">*</span><span class="bn">রাসায়নিক রং, ডিটারজেন্ট বা ফ্যাব্রিক ফিনিশিং সরাসরি স্পর্শ করেন?</span></label>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="chemical_contact" value="Yes, daily"> Yes, daily / হ্যাঁ, প্রতিদিন</label>
+          <label class="radio-pill"><input type="radio" name="chemical_contact" value="Sometimes"> Sometimes / মাঝেমাঝে</label>
+          <label class="radio-pill"><input type="radio" name="chemical_contact" value="Rarely"> Rarely / বিরলে</label>
+          <label class="radio-pill"><input type="radio" name="chemical_contact" value="No"> No / না</label>
+        </div>
+      </div>
+
+      <!-- C5: Eye and vision -->
+      <div class="q">
+        <label>C5. After a typical shift, how often do you experience eye strain, blurred vision, or headache from eye fatigue? <span class="req">*</span><span class="bn">শিফটের পর চোখের ক্লান্তি, ঝাপসা দেখা বা মাথাব্যথা কতবার হয়?</span></label>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="eye_strain_freq" value="Never"> Never / কখনোই না</label>
+          <label class="radio-pill"><input type="radio" name="eye_strain_freq" value="1–2 times a week"> 1–2 times/week / সপ্তাহে ১–২ বার</label>
+          <label class="radio-pill"><input type="radio" name="eye_strain_freq" value="Most days"> Most days / বেশিরভাগ দিন</label>
+          <label class="radio-pill"><input type="radio" name="eye_strain_freq" value="Every day"> Every day / প্রতিদিন</label>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>Has your vision become worse since you started working in this factory? <span class="req">*</span><span class="bn">এই কারখানায় কাজ শুরু করার পর দৃষ্টিশক্তি কি কমেছে?</span></label>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="vision_deterioration" value="Yes, noticeably"> Yes, noticeably / হ্যাঁ, স্পষ্টভাবে</label>
+          <label class="radio-pill"><input type="radio" name="vision_deterioration" value="Slightly"> Slightly / সামান্য</label>
+          <label class="radio-pill"><input type="radio" name="vision_deterioration" value="No change"> No change / পরিবর্তন নেই</label>
+          <label class="radio-pill"><input type="radio" name="vision_deterioration" value="Not sure"> Not sure / নিশ্চিত নই</label>
+        </div>
+      </div>
+
+      <!-- C6: Hearing -->
+      <div class="q">
+        <label>C6. How often do you experience ringing, buzzing, or humming in your ears (tinnitus)? <span class="req">*</span><span class="bn">কানে শোঁ শোঁ বা গুনগুন শব্দ কতবার হয় (টিনিটাস)?</span></label>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="tinnitus_freq" value="Never"> Never / কখনোই না</label>
+          <label class="radio-pill"><input type="radio" name="tinnitus_freq" value="Occasionally"> Occasionally / মাঝেমাঝে</label>
+          <label class="radio-pill"><input type="radio" name="tinnitus_freq" value="After most shifts"> After most shifts / বেশিরভাগ শিফটের পর</label>
+          <label class="radio-pill"><input type="radio" name="tinnitus_freq" value="Constantly"> Constantly / সবসময়</label>
+        </div>
+      </div>
+
+      <!-- C7: Digestive and nutrition -->
+      <div class="q">
+        <label>C7. How many meals do you usually skip on a workday due to lack of time or money? <span class="req">*</span><span class="bn">কাজের দিনে সময় বা অর্থের অভাবে সাধারণত কতটি খাবার বাদ দেন?</span></label>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="meals_skipped" value="None — I eat all meals"> None / কোনোটি না</label>
+          <label class="radio-pill"><input type="radio" name="meals_skipped" value="1 meal"> 1 meal / ১টি</label>
+          <label class="radio-pill"><input type="radio" name="meals_skipped" value="2 meals"> 2 meals / ২টি</label>
+          <label class="radio-pill"><input type="radio" name="meals_skipped" value="All meals skipped sometimes"> Sometimes skip all / মাঝে মাঝে সব বাদ</label>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>How often do you feel hungry during your work shift? <span class="req">*</span><span class="bn">কর্মশিফটে কতবার ক্ষুধার্ত অনুভব করেন?</span></label>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="hunger_at_work" value="Never"> Never / কখনোই না</label>
+          <label class="radio-pill"><input type="radio" name="hunger_at_work" value="Sometimes"> Sometimes / মাঝেমাঝে</label>
+          <label class="radio-pill"><input type="radio" name="hunger_at_work" value="Most days"> Most days / বেশিরভাগ দিন</label>
+          <label class="radio-pill"><input type="radio" name="hunger_at_work" value="Every day"> Every day / প্রতিদিন</label>
+        </div>
+      </div>
+
+      <!-- C8: Reproductive health (female workers — optional) -->
+      <div class="q" style="background:var(--amber-100);border:1px solid var(--amber-500);border-radius:var(--radius-sm);padding:14px 16px;">
+        <label style="font-weight:500;color:#7a5000;">C8. For female workers only — optional / শুধুমাত্র মহিলা শ্রমিকদের জন্য — ঐচ্ছিক</label>
+        <div class="hint" style="margin-bottom:10px;">Skipping this section does not affect your submission / এই অংশ বাদ দিলে জরিপ প্রভাবিত হবে না</div>
+
+        <div style="display:grid;gap:14px;">
+          <div class="q">
+            <label>Has your menstrual cycle become irregular since working in this factory? <span class="bn">এই কারখানায় কাজ শুরুর পর মাসিক চক্র কি অনিয়মিত হয়েছে?</span></label>
+            <div class="radio-group">
+              <label class="radio-pill"><input type="radio" name="menstrual_irregularity" value="Yes, clearly irregular"> Yes, clearly / হ্যাঁ, স্পষ্টভাবে</label>
+              <label class="radio-pill"><input type="radio" name="menstrual_irregularity" value="Slightly irregular"> Slightly / সামান্য</label>
+              <label class="radio-pill"><input type="radio" name="menstrual_irregularity" value="No change"> No change / পরিবর্তন নেই</label>
+              <label class="radio-pill"><input type="radio" name="menstrual_irregularity" value="Not applicable"> Not applicable / প্রযোজ্য নয়</label>
+            </div>
+          </div>
+
+          <div class="q">
+            <label>Do you experience significant pelvic or lower abdominal pain during shifts? <span class="bn">শিফটে পেলভিক বা তলপেটে তীব্র ব্যথা অনুভব করেন?</span></label>
+            <div class="radio-group">
+              <label class="radio-pill"><input type="radio" name="pelvic_pain_at_work" value="Yes, frequently"> Yes, frequently / হ্যাঁ, প্রায়ই</label>
+              <label class="radio-pill"><input type="radio" name="pelvic_pain_at_work" value="Sometimes"> Sometimes / মাঝেমাঝে</label>
+              <label class="radio-pill"><input type="radio" name="pelvic_pain_at_work" value="Rarely"> Rarely / বিরলে</label>
+              <label class="radio-pill"><input type="radio" name="pelvic_pain_at_work" value="Never"> Never / না</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- C9: General / diagnosed conditions -->
+      <div class="q">
+        <label>C9. Have you been formally diagnosed with any of the following? (Select all) <span class="bn">নিচের কোনো রোগ কি আপনার নির্ণয় হয়েছে?</span></label>
+        <div class="check-group col">
+          <label class="check-pill"><input type="checkbox" name="diagnosis" value="Musculoskeletal disorder"> Musculoskeletal disorder / হাড়-পেশি সমস্যা</label>
+          <label class="check-pill"><input type="checkbox" name="diagnosis" value="Respiratory condition"> Respiratory condition (asthma, dust allergy) / শ্বাসযন্ত্রের সমস্যা</label>
+          <label class="check-pill"><input type="checkbox" name="diagnosis" value="Skin condition"> Skin condition / চর্মরোগ</label>
+          <label class="check-pill"><input type="checkbox" name="diagnosis" value="Hearing loss/tinnitus"> Hearing loss / tinnitus / শ্রবণশক্তি হ্রাস</label>
+          <label class="check-pill"><input type="checkbox" name="diagnosis" value="Eye / vision disorder"> Eye / vision disorder / চোখের সমস্যা</label>
+          <label class="check-pill"><input type="checkbox" name="diagnosis" value="Digestive issues"> Digestive / gastrointestinal / পাচনতন্ত্রের সমস্যা</label>
+          <label class="check-pill"><input type="checkbox" name="diagnosis" value="Hypertension"> Hypertension / উচ্চ রক্তচাপ</label>
+          <label class="check-pill"><input type="checkbox" name="diagnosis" value="Diabetes"> Diabetes / ডায়াবেটিস</label>
+          <label class="check-pill"><input type="checkbox" name="diagnosis" value="Reproductive/gynaecological condition"> Reproductive / gynaecological / প্রজনন স্বাস্থ্য সমস্যা</label>
+          <label class="check-pill"><input type="checkbox" name="diagnosis" value="None"> None / কোনোটি না</label>
+        </div>
+      </div>
+
+      <!-- C9b: Common illness multi-select accordion -->
+      <div class="q">
+        <label style="margin-bottom:6px;">
+          C9b. Which of the following health conditions have you experienced while working here? <span class="bn">কর্মস্থলে কাজ করার সময় নিচের কোন স্বাস্থ্য সমস্যাগুলো আপনার হয়েছে?</span>
+        </label>
+        <div class="hint" style="margin-bottom:10px;">Select all that apply across all categories / সকল প্রযোজ্য বিকল্প নির্বাচন করুন</div>
+
+        <div class="illness-wrap">
+
+          <!-- Category A: Physical Illness -->
+          <div class="ill-cat" id="cat-a">
+            <div class="ill-cat-header" onclick="toggleCat('cat-a')">
+              <span class="ill-cat-dot" style="background:#1e7a4b;"></span>
+              <span class="ill-cat-label">A. Physical Illness <span class="bn">/ শারীরিক অসুস্থতা</span></span>
+              <span class="ill-cat-count" id="cnt-a">0</span>
+              <span class="ill-cat-arrow">&#9660;</span>
+            </div>
+            <div class="ill-cat-body" id="body-cat-a">
+              <div class="ill-grid">
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Back pain" onchange="updCnt('cat-a','illness_physical')"> Back pain <span class="bn-sm">পিঠে ব্যথা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Neck pain" onchange="updCnt('cat-a','illness_physical')"> Neck pain <span class="bn-sm">ঘাড়ে ব্যথা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Shoulder pain" onchange="updCnt('cat-a','illness_physical')"> Shoulder pain <span class="bn-sm">কাঁধে ব্যথা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Wrist pain" onchange="updCnt('cat-a','illness_physical')"> Wrist pain <span class="bn-sm">কব্জিতে ব্যথা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Finger pain" onchange="updCnt('cat-a','illness_physical')"> Finger pain <span class="bn-sm">আঙুলে ব্যথা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Knee pain" onchange="updCnt('cat-a','illness_physical')"> Knee pain <span class="bn-sm">হাঁটুতে ব্যথা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Leg pain" onchange="updCnt('cat-a','illness_physical')"> Leg pain <span class="bn-sm">পায়ে ব্যথা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Joint pain" onchange="updCnt('cat-a','illness_physical')"> Joint pain <span class="bn-sm">জয়েন্টে ব্যথা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Muscle strain" onchange="updCnt('cat-a','illness_physical')"> Muscle strain <span class="bn-sm">পেশি টান</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Sciatica" onchange="updCnt('cat-a','illness_physical')"> Sciatica <span class="bn-sm">সায়াটিকা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Headache" onchange="updCnt('cat-a','illness_physical')"> Headache <span class="bn-sm">মাথাব্যথা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Migraine" onchange="updCnt('cat-a','illness_physical')"> Migraine <span class="bn-sm">মাইগ্রেন</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Eye strain" onchange="updCnt('cat-a','illness_physical')"> Eye strain <span class="bn-sm">চোখের ক্লান্তি</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Blurred vision" onchange="updCnt('cat-a','illness_physical')"> Blurred vision <span class="bn-sm">ঝাপসা দেখা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Dry eyes" onchange="updCnt('cat-a','illness_physical')"> Dry eyes <span class="bn-sm">শুষ্ক চোখ</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Hearing loss" onchange="updCnt('cat-a','illness_physical')"> Hearing loss <span class="bn-sm">শ্রবণশক্তি হ্রাস</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Tinnitus" onchange="updCnt('cat-a','illness_physical')"> Tinnitus <span class="bn-sm">কানে শব্দ</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Chronic fatigue" onchange="updCnt('cat-a','illness_physical')"> Chronic fatigue <span class="bn-sm">দীর্ঘস্থায়ী ক্লান্তি</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Fever" onchange="updCnt('cat-a','illness_physical')"> Fever <span class="bn-sm">জ্বর</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Common cold" onchange="updCnt('cat-a','illness_physical')"> Common cold <span class="bn-sm">সর্দি-কাশি</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Cough" onchange="updCnt('cat-a','illness_physical')"> Cough <span class="bn-sm">কাশি</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Asthma" onchange="updCnt('cat-a','illness_physical')"> Asthma <span class="bn-sm">অ্যাজমা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Breathing difficulty" onchange="updCnt('cat-a','illness_physical')"> Breathing difficulty <span class="bn-sm">শ্বাসকষ্ট</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Chest tightness" onchange="updCnt('cat-a','illness_physical')"> Chest tightness <span class="bn-sm">বুকে চাপ</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Sinus allergy" onchange="updCnt('cat-a','illness_physical')"> Sinus allergy <span class="bn-sm">সাইনাস অ্যালার্জি</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Gastric pain" onchange="updCnt('cat-a','illness_physical')"> Gastric pain <span class="bn-sm">গ্যাস্ট্রিক ব্যথা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Acidity" onchange="updCnt('cat-a','illness_physical')"> Acidity <span class="bn-sm">এসিডিটি</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Abdominal pain" onchange="updCnt('cat-a','illness_physical')"> Abdominal pain <span class="bn-sm">পেটব্যথা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Diarrhea" onchange="updCnt('cat-a','illness_physical')"> Diarrhea <span class="bn-sm">ডায়রিয়া</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Constipation" onchange="updCnt('cat-a','illness_physical')"> Constipation <span class="bn-sm">কোষ্ঠকাঠিন্য</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Malnutrition" onchange="updCnt('cat-a','illness_physical')"> Malnutrition <span class="bn-sm">অপুষ্টি</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Anemia" onchange="updCnt('cat-a','illness_physical')"> Anemia <span class="bn-sm">রক্তশূন্যতা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Dehydration" onchange="updCnt('cat-a','illness_physical')"> Dehydration <span class="bn-sm">পানিশূন্যতা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Hypertension" onchange="updCnt('cat-a','illness_physical')"> Hypertension <span class="bn-sm">উচ্চ রক্তচাপ</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_physical" value="Heart disease risk" onchange="updCnt('cat-a','illness_physical')"> Heart disease risk <span class="bn-sm">হৃদরোগের ঝুঁকি</span></label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category B: Skin & Chemical Illnesses -->
+          <div class="ill-cat" id="cat-b">
+            <div class="ill-cat-header" onclick="toggleCat('cat-b')">
+              <span class="ill-cat-dot" style="background:#e0a020;"></span>
+              <span class="ill-cat-label">B. Skin &amp; Chemical Illnesses <span class="bn">/ ত্বক ও রাসায়নিক সমস্যা</span></span>
+              <span class="ill-cat-count" id="cnt-b">0</span>
+              <span class="ill-cat-arrow">&#9660;</span>
+            </div>
+            <div class="ill-cat-body" id="body-cat-b">
+              <div class="ill-grid">
+                <label class="ill-pill"><input type="checkbox" name="illness_skin" value="Dermatitis" onchange="updCnt('cat-b','illness_skin')"> Dermatitis <span class="bn-sm">ডার্মাটাইটিস</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_skin" value="Skin rash" onchange="updCnt('cat-b','illness_skin')"> Skin rash <span class="bn-sm">ত্বকে র‍্যাশ</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_skin" value="Itching" onchange="updCnt('cat-b','illness_skin')"> Itching <span class="bn-sm">চুলকানি</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_skin" value="Chemical burns" onchange="updCnt('cat-b','illness_skin')"> Chemical burns <span class="bn-sm">রাসায়নিক পোড়া</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_skin" value="Dye allergy" onchange="updCnt('cat-b','illness_skin')"> Dye allergy <span class="bn-sm">রং অ্যালার্জি</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_skin" value="Fabric dust irritation" onchange="updCnt('cat-b','illness_skin')"> Fabric dust irritation <span class="bn-sm">কাপড়ের ধুলো জ্বালা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_skin" value="Fungal infection" onchange="updCnt('cat-b','illness_skin')"> Fungal infection <span class="bn-sm">ছত্রাক সংক্রমণ</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_skin" value="Hand dryness" onchange="updCnt('cat-b','illness_skin')"> Hand dryness <span class="bn-sm">হাতের শুষ্কতা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_skin" value="Nail damage" onchange="updCnt('cat-b','illness_skin')"> Nail damage <span class="bn-sm">নখের ক্ষতি</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_skin" value="Heat rash" onchange="updCnt('cat-b','illness_skin')"> Heat rash <span class="bn-sm">ঘামাচি</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_skin" value="Contact allergy" onchange="updCnt('cat-b','illness_skin')"> Contact allergy <span class="bn-sm">স্পর্শ অ্যালার্জি</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_skin" value="Sweating dermatitis" onchange="updCnt('cat-b','illness_skin')"> Sweating dermatitis <span class="bn-sm">ঘাম-জনিত ডার্মাটাইটিস</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_skin" value="Infection from cuts" onchange="updCnt('cat-b','illness_skin')"> Infection from cuts <span class="bn-sm">কাটা থেকে সংক্রমণ</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_skin" value="Toxic inhalation irritation" onchange="updCnt('cat-b','illness_skin')"> Toxic inhalation irritation <span class="bn-sm">বিষাক্ত শ্বাস জ্বালা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_skin" value="Chemical sensitivity" onchange="updCnt('cat-b','illness_skin')"> Chemical sensitivity <span class="bn-sm">রাসায়নিক সংবেদনশীলতা</span></label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category C: Mental Health Issues -->
+          <div class="ill-cat" id="cat-c">
+            <div class="ill-cat-header" onclick="toggleCat('cat-c')">
+              <span class="ill-cat-dot" style="background:#7f77dd;"></span>
+              <span class="ill-cat-label">C. Mental Health Issues <span class="bn">/ মানসিক স্বাস্থ্য সমস্যা</span></span>
+              <span class="ill-cat-count" id="cnt-c">0</span>
+              <span class="ill-cat-arrow">&#9660;</span>
+            </div>
+            <div class="ill-cat-body" id="body-cat-c">
+              <div class="ill-grid">
+                <label class="ill-pill"><input type="checkbox" name="illness_mental" value="Work stress" onchange="updCnt('cat-c','illness_mental')"> Work stress <span class="bn-sm">কাজের চাপ</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_mental" value="Anxiety" onchange="updCnt('cat-c','illness_mental')"> Anxiety <span class="bn-sm">উদ্বেগ</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_mental" value="Depression" onchange="updCnt('cat-c','illness_mental')"> Depression <span class="bn-sm">বিষণ্নতা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_mental" value="Burnout" onchange="updCnt('cat-c','illness_mental')"> Burnout <span class="bn-sm">মানসিক অবসাদ</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_mental" value="Insomnia" onchange="updCnt('cat-c','illness_mental')"> Insomnia <span class="bn-sm">ঘুমহীনতা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_mental" value="Fear of job loss" onchange="updCnt('cat-c','illness_mental')"> Fear of job loss <span class="bn-sm">চাকরি হারানোর ভয়</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_mental" value="Emotional exhaustion" onchange="updCnt('cat-c','illness_mental')"> Emotional exhaustion <span class="bn-sm">আবেগিক ক্লান্তি</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_mental" value="Trauma after accidents" onchange="updCnt('cat-c','illness_mental')"> Trauma after accidents <span class="bn-sm">দুর্ঘটনার পরে ট্রমা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_mental" value="Panic attacks" onchange="updCnt('cat-c','illness_mental')"> Panic attacks <span class="bn-sm">প্যানিক অ্যাটাক</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_mental" value="Low morale" onchange="updCnt('cat-c','illness_mental')"> Low morale <span class="bn-sm">মনোবল কম</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_mental" value="Anger issues" onchange="updCnt('cat-c','illness_mental')"> Anger issues <span class="bn-sm">রাগের সমস্যা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_mental" value="Lack of concentration" onchange="updCnt('cat-c','illness_mental')"> Lack of concentration <span class="bn-sm">মনোযোগ কম</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_mental" value="Social withdrawal" onchange="updCnt('cat-c','illness_mental')"> Social withdrawal <span class="bn-sm">সামাজিক বিচ্ছিন্নতা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_mental" value="Irritability" onchange="updCnt('cat-c','illness_mental')"> Irritability <span class="bn-sm">খিটখিটেভাব</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_mental" value="Chronic stress syndrome" onchange="updCnt('cat-c','illness_mental')"> Chronic stress syndrome <span class="bn-sm">দীর্ঘস্থায়ী মানসিক চাপ</span></label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category D: Workplace Injuries -->
+          <div class="ill-cat" id="cat-d">
+            <div class="ill-cat-header" onclick="toggleCat('cat-d')">
+              <span class="ill-cat-dot" style="background:#d03030;"></span>
+              <span class="ill-cat-label">D. Workplace Injuries <span class="bn">/ কর্মস্থলে আঘাত</span></span>
+              <span class="ill-cat-count" id="cnt-d">0</span>
+              <span class="ill-cat-arrow">&#9660;</span>
+            </div>
+            <div class="ill-cat-body" id="body-cat-d">
+              <div class="ill-grid">
+                <label class="ill-pill"><input type="checkbox" name="illness_injury" value="Needle puncture injury" onchange="updCnt('cat-d','illness_injury')"> Needle puncture <span class="bn-sm">সুই ফোটানো আঘাত</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_injury" value="Finger cut" onchange="updCnt('cat-d','illness_injury')"> Finger cut <span class="bn-sm">আঙুল কাটা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_injury" value="Hand cut" onchange="updCnt('cat-d','illness_injury')"> Hand cut <span class="bn-sm">হাত কাটা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_injury" value="Hand crush injury" onchange="updCnt('cat-d','illness_injury')"> Hand crush injury <span class="bn-sm">হাত চাপা পড়া</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_injury" value="Machine entanglement" onchange="updCnt('cat-d','illness_injury')"> Machine entanglement <span class="bn-sm">মেশিনে আটকে যাওয়া</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_injury" value="Fracture" onchange="updCnt('cat-d','illness_injury')"> Fracture <span class="bn-sm">হাড় ভাঙা</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_injury" value="Sprain" onchange="updCnt('cat-d','illness_injury')"> Sprain <span class="bn-sm">মচকে যাওয়া</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_injury" value="Slip injury" onchange="updCnt('cat-d','illness_injury')"> Slip injury <span class="bn-sm">পিছলে পড়া</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_injury" value="Trip injury" onchange="updCnt('cat-d','illness_injury')"> Trip injury <span class="bn-sm">হোঁচট খেয়ে পড়া</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_injury" value="Fall injury" onchange="updCnt('cat-d','illness_injury')"> Fall injury <span class="bn-sm">পড়ে যাওয়া আঘাত</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_injury" value="Stair injury" onchange="updCnt('cat-d','illness_injury')"> Stair injury <span class="bn-sm">সিঁড়িতে আঘাত</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_injury" value="Electric shock" onchange="updCnt('cat-d','illness_injury')"> Electric shock <span class="bn-sm">বিদ্যুৎস্পৃষ্ট</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_injury" value="Fire burn" onchange="updCnt('cat-d','illness_injury')"> Fire burn <span class="bn-sm">আগুনে পোড়া</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_injury" value="Smoke inhalation" onchange="updCnt('cat-d','illness_injury')"> Smoke inhalation <span class="bn-sm">ধোঁয়া শ্বাস নেওয়া</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_injury" value="Falling object injury" onchange="updCnt('cat-d','illness_injury')"> Falling object injury <span class="bn-sm">পড়ন্ত বস্তুর আঘাত</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_injury" value="Heavy lifting injury" onchange="updCnt('cat-d','illness_injury')"> Heavy lifting injury <span class="bn-sm">ভারী বস্তু তোলার আঘাত</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_injury" value="Shoulder dislocation" onchange="updCnt('cat-d','illness_injury')"> Shoulder dislocation <span class="bn-sm">কাঁধ স্থানচ্যুত</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_injury" value="Eye injury" onchange="updCnt('cat-d','illness_injury')"> Eye injury <span class="bn-sm">চোখে আঘাত</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_injury" value="Foot injury" onchange="updCnt('cat-d','illness_injury')"> Foot injury <span class="bn-sm">পায়ে আঘাত</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_injury" value="Emergency exit stampede injury" onchange="updCnt('cat-d','illness_injury')"> Emergency stampede injury <span class="bn-sm">জরুরি বহির্গমনে আঘাত</span></label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category E: Women Worker Health Issues (female only) -->
+          <div class="ill-cat" id="cat-e">
+            <div class="ill-cat-header" onclick="toggleCat('cat-e')">
+              <span class="ill-cat-dot" style="background:#b07a10;"></span>
+              <span class="ill-cat-label">E. Women Worker Health Issues <span class="bn">/ মহিলা শ্রমিকদের স্বাস্থ্য সমস্যা</span></span>
+              <span class="ill-cat-count" id="cnt-e">0</span>
+              <span class="ill-cat-arrow">&#9660;</span>
+            </div>
+            <div class="ill-cat-body" id="body-cat-e">
+              <div class="ill-female-note">&#9888; For female workers only — optional / শুধুমাত্র মহিলা শ্রমিকদের জন্য — ঐচ্ছিক</div>
+              <div class="ill-grid">
+                <label class="ill-pill"><input type="checkbox" name="illness_women" value="Menstrual discomfort" onchange="updCnt('cat-e','illness_women')"> Menstrual discomfort <span class="bn-sm">মাসিকের অস্বস্তি</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_women" value="Urinary infection risk" onchange="updCnt('cat-e','illness_women')"> Urinary infection risk <span class="bn-sm">মূত্রনালী সংক্রমণ ঝুঁকি</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_women" value="Pregnancy stress" onchange="updCnt('cat-e','illness_women')"> Pregnancy stress <span class="bn-sm">গর্ভকালীন চাপ</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_women" value="Miscarriage risk factors" onchange="updCnt('cat-e','illness_women')"> Miscarriage risk factors <span class="bn-sm">গর্ভপাতের ঝুঁকি</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_women" value="Nutritional deficiency" onchange="updCnt('cat-e','illness_women')"> Nutritional deficiency <span class="bn-sm">পুষ্টির অভাব</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_women" value="Iron deficiency anemia" onchange="updCnt('cat-e','illness_women')"> Iron deficiency anemia <span class="bn-sm">আয়রনের অভাব</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_women" value="Reproductive health stress" onchange="updCnt('cat-e','illness_women')"> Reproductive health stress <span class="bn-sm">প্রজনন স্বাস্থ্য চাপ</span></label>
+                <label class="ill-pill"><input type="checkbox" name="illness_women" value="Lack of maternal support access" onchange="updCnt('cat-e','illness_women')"> Lack of maternal support <span class="bn-sm">মাতৃসেবা সুবিধার অভাব</span></label>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- end illness-wrap -->
+      </div>
+
+      <!-- C10: Mental health PHQ-4 -->
+      <div class="q">
+        <label style="margin-bottom:4px;">
+          C10. Mental health (PHQ-4) — Over the last 2 weeks, how often have you been bothered by the following? <span class="req">*</span>
+          <span class="bn">মানসিক স্বাস্থ্য (PHQ-4) — গত ২ সপ্তাহে নিচের বিষয়গুলোয় কতটা কষ্ট পেয়েছেন?</span>
+        </label>
+        <div class="hint">0=Not at all / একদমই না &nbsp;·&nbsp; 1=Several days / কয়েকদিন &nbsp;·&nbsp; 2=More than half / অর্ধেকের বেশি &nbsp;·&nbsp; 3=Nearly every day / প্রায় প্রতিদিন</div>
+        <div style="display:grid;gap:10px;margin-top:8px;">
+          <div class="q">
+            <label>Feeling nervous, anxious or on edge / উদ্বিগ্ন বা নার্ভাস <span class="req">*</span></label>
+            <div class="likert-row" style="max-width:280px;">
+              <div class="likert-opt"><input type="radio" name="phq4_1" value="0" id="phq41_0"><label for="phq41_0">0</label></div>
+              <div class="likert-opt"><input type="radio" name="phq4_1" value="1" id="phq41_1"><label for="phq41_1">1</label></div>
+              <div class="likert-opt"><input type="radio" name="phq4_1" value="2" id="phq41_2"><label for="phq41_2">2</label></div>
+              <div class="likert-opt"><input type="radio" name="phq4_1" value="3" id="phq41_3"><label for="phq41_3">3</label></div>
+            </div>
+          </div>
+          <div class="q">
+            <label>Not being able to stop or control worrying / দুশ্চিন্তা থামাতে না পারা <span class="req">*</span></label>
+            <div class="likert-row" style="max-width:280px;">
+              <div class="likert-opt"><input type="radio" name="phq4_2" value="0" id="phq42_0"><label for="phq42_0">0</label></div>
+              <div class="likert-opt"><input type="radio" name="phq4_2" value="1" id="phq42_1"><label for="phq42_1">1</label></div>
+              <div class="likert-opt"><input type="radio" name="phq4_2" value="2" id="phq42_2"><label for="phq42_2">2</label></div>
+              <div class="likert-opt"><input type="radio" name="phq4_2" value="3" id="phq42_3"><label for="phq42_3">3</label></div>
+            </div>
+          </div>
+          <div class="q">
+            <label>Feeling down, depressed, or hopeless / মন খারাপ বা হতাশ <span class="req">*</span></label>
+            <div class="likert-row" style="max-width:280px;">
+              <div class="likert-opt"><input type="radio" name="phq4_3" value="0" id="phq43_0"><label for="phq43_0">0</label></div>
+              <div class="likert-opt"><input type="radio" name="phq4_3" value="1" id="phq43_1"><label for="phq43_1">1</label></div>
+              <div class="likert-opt"><input type="radio" name="phq4_3" value="2" id="phq43_2"><label for="phq43_2">2</label></div>
+              <div class="likert-opt"><input type="radio" name="phq4_3" value="3" id="phq43_3"><label for="phq43_3">3</label></div>
+            </div>
+          </div>
+          <div class="q">
+            <label>Little interest or pleasure in doing things / কাজে আগ্রহ না পাওয়া <span class="req">*</span></label>
+            <div class="likert-row" style="max-width:280px;">
+              <div class="likert-opt"><input type="radio" name="phq4_4" value="0" id="phq44_0"><label for="phq44_0">0</label></div>
+              <div class="likert-opt"><input type="radio" name="phq4_4" value="1" id="phq44_1"><label for="phq44_1">1</label></div>
+              <div class="likert-opt"><input type="radio" name="phq4_4" value="2" id="phq44_2"><label for="phq44_2">2</label></div>
+              <div class="likert-opt"><input type="radio" name="phq4_4" value="3" id="phq44_3"><label for="phq44_3">3</label></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- C11: Lifestyle -->
+      <div class="q">
+        <label>Do you currently smoke tobacco? <span class="bn">তামাক/সিগারেট সেবন করেন?</span></label>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="smoking" value="Yes"> Yes / হ্যাঁ</label>
+          <label class="radio-pill"><input type="radio" name="smoking" value="No"> No / না</label>
+          <label class="radio-pill"><input type="radio" name="smoking" value="Occasionally"> Occasionally / মাঝেমাঝে</label>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>Do you eat at the factory canteen regularly? <span class="bn">নিয়মিত ক্যান্টিনে খাবার খান?</span></label>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="canteen_use" value="Yes, daily"> Yes, daily / হ্যাঁ, প্রতিদিন</label>
+          <label class="radio-pill"><input type="radio" name="canteen_use" value="Sometimes"> Sometimes / মাঝেমাঝে</label>
+          <label class="radio-pill"><input type="radio" name="canteen_use" value="No"> No / না</label>
+          <label class="radio-pill"><input type="radio" name="canteen_use" value="No canteen available"> No canteen / ক্যান্টিন নেই</label>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>On a typical workday, how many hours do you sleep? <span class="req">*</span><span class="bn">সাধারণ কর্মদিনে কত ঘণ্টা ঘুমান?</span></label>
+        <select name="sleep_hours" required>
+          <option value="">— Select / নির্বাচন করুন —</option>
+          <option value="Less than 4">Less than 4 hours / ৪ ঘণ্টার কম</option>
+          <option value="4–5">4–5 hours / ৪–৫ ঘণ্টা</option>
+          <option value="6–7">6–7 hours / ৬–৭ ঘণ্টা</option>
+          <option value="8">8 hours / ৮ ঘণ্টা</option>
+          <option value="More than 8">More than 8 hours / ৮ ঘণ্টার বেশি</option>
+        </select>
+      </div>
+
+      <!-- C12: Injury history -->
+      <div class="q">
+        <label>Have you ever been injured at this or any previous factory? <span class="req">*</span><span class="bn">এই বা আগের কোনো কারখানায় আহত হয়েছেন?</span></label>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="previous_injury" value="Yes, within the past year"> Yes, past year / হ্যাঁ, গত বছরে</label>
+          <label class="radio-pill"><input type="radio" name="previous_injury" value="Yes, more than 1 year ago"> Yes, 1+ year ago / হ্যাঁ, ১ বছরের আগে</label>
+          <label class="radio-pill"><input type="radio" name="previous_injury" value="No, never"> No, never / না</label>
+        </div>
+      </div>
+
+      <div class="q" id="injury_detail_q" style="display:none;">
+        <label>Which part of the body was injured? <span class="bn">শরীরের কোন অংশে আঘাত?</span></label>
+        <select name="injury_body_part">
+          <option value="">— Select / নির্বাচন করুন —</option>
+          <option value="Hand / finger">Hand / finger / হাত / আঙুল</option>
+          <option value="Wrist / arm">Wrist / arm / কব্জি / বাহু</option>
+          <option value="Eye">Eye / চোখ</option>
+          <option value="Back">Back / পিঠ</option>
+          <option value="Leg / foot">Leg / foot / পা</option>
+          <option value="Head / neck">Head / neck / মাথা / ঘাড়</option>
+          <option value="Other">Other / অন্যান্য</option>
+        </select>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─ SECTION D: Productivity Self-Assessment ─ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">D</div>
+      <div>
+        <div class="section-title">Productivity Self-Assessment
+          <span class="section-title-bn">উৎপাদনশীলতার আত্মমূল্যায়ন</span>
+        </div>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="q">
+        <label>How would you rate your ability to meet your daily production target? <span class="req">*</span><span class="bn">আপনি কি দৈনন্দিন উৎপাদন লক্ষ্যমাত্রা পূরণ করতে পারেন?</span></label>
+        <div class="likert-wrap">
+          <div class="likert-labels"><span>Never / কখনোই না</span><span>Always / সবসময়</span></div>
+          <div class="likert-row">
+            <div class="likert-opt"><input type="radio" name="target_achievement" value="1" id="ta1"><label for="ta1">1</label></div>
+            <div class="likert-opt"><input type="radio" name="target_achievement" value="2" id="ta2"><label for="ta2">2</label></div>
+            <div class="likert-opt"><input type="radio" name="target_achievement" value="3" id="ta3"><label for="ta3">3</label></div>
+            <div class="likert-opt"><input type="radio" name="target_achievement" value="4" id="ta4"><label for="ta4">4</label></div>
+            <div class="likert-opt"><input type="radio" name="target_achievement" value="5" id="ta5"><label for="ta5">5</label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>How much does physical discomfort or pain affect your work performance? <span class="req">*</span><span class="bn">শারীরিক অস্বস্তি বা ব্যথা কাজের কর্মক্ষমতাকে কতটা প্রভাবিত করে?</span></label>
+        <div class="likert-wrap">
+          <div class="likert-labels"><span>Not at all / একদমই না</span><span>Greatly / অনেক বেশি</span></div>
+          <div class="likert-row">
+            <div class="likert-opt"><input type="radio" name="pain_impact_work" value="1" id="pi1"><label for="pi1">1</label></div>
+            <div class="likert-opt"><input type="radio" name="pain_impact_work" value="2" id="pi2"><label for="pi2">2</label></div>
+            <div class="likert-opt"><input type="radio" name="pain_impact_work" value="3" id="pi3"><label for="pi3">3</label></div>
+            <div class="likert-opt"><input type="radio" name="pain_impact_work" value="4" id="pi4"><label for="pi4">4</label></div>
+            <div class="likert-opt"><input type="radio" name="pain_impact_work" value="5" id="pi5"><label for="pi5">5</label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>How often do you make errors or produce defective items due to fatigue or pain? <span class="req">*</span><span class="bn">ক্লান্তি বা ব্যথার কারণে কতবার ভুল বা ত্রুটিপূর্ণ পণ্য তৈরি হয়?</span></label>
+        <select name="defect_frequency" required>
+          <option value="">— Select / নির্বাচন করুন —</option>
+          <option value="Never">Never / কখনোই না</option>
+          <option value="Less than once a week">Less than once a week / সপ্তাহে একবারের কম</option>
+          <option value="1–2 times a week">1–2 times a week / সপ্তাহে ১–২ বার</option>
+          <option value="3–5 times a week">3–5 times a week / সপ্তাহে ৩–৫ বার</option>
+          <option value="Daily">Daily / প্রতিদিন</option>
+        </select>
+      </div>
+
+      <div class="q">
+        <label>How do you feel at the end of a typical workday? <span class="req">*</span><span class="bn">সাধারণ কর্মদিন শেষে কেমন অনুভব করেন?</span></label>
+        <select name="end_of_day_feeling" required>
+          <option value="">— Select / নির্বাচন করুন —</option>
+          <option value="Energetic">Energetic / উদ্যমী</option>
+          <option value="Slightly tired">Slightly tired / সামান্য ক্লান্ত</option>
+          <option value="Moderately tired">Moderately tired / মোটামুটি ক্লান্ত</option>
+          <option value="Very tired">Very tired / খুব ক্লান্ত</option>
+          <option value="Exhausted, in pain">Exhausted and in pain / অবসন্ন ও ব্যথায়</option>
+        </select>
+      </div>
+
+      <div class="q">
+        <label>Have you reduced your work pace or skipped tasks in the past month due to health? <span class="bn">গত মাসে স্বাস্থ্যজনিত কারণে কাজের গতি কমিয়েছেন বা বাদ দিয়েছেন?</span></label>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="reduced_pace_health" value="Yes, frequently"> Yes, frequently / হ্যাঁ, প্রায়ই</label>
+          <label class="radio-pill"><input type="radio" name="reduced_pace_health" value="Yes, sometimes"> Yes, sometimes / হ্যাঁ, মাঝে মাঝে</label>
+          <label class="radio-pill"><input type="radio" name="reduced_pace_health" value="No"> No / না</label>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>In the past month, how many days did you come to work despite feeling unwell or in significant pain? <span class="req">*</span><span class="bn">গত মাসে অসুস্থ বা তীব্র ব্যথা থাকা সত্ত্বেও কতদিন কাজে এসেছেন?</span></label>
+        <div class="hint">This is called "presenteeism" — working while sick / অসুস্থ অবস্থায় কাজে আসাকে "প্রেজেন্টিইজম" বলা হয়</div>
+        <select name="presenteeism_days" required>
+          <option value="">— Select / নির্বাচন করুন —</option>
+          <option value="0">0 days — I did not come to work sick / ০ দিন</option>
+          <option value="1–3">1–3 days / ১–৩ দিন</option>
+          <option value="4–7">4–7 days / ৪–৭ দিন</option>
+          <option value="8–15">8–15 days / ৮–১৫ দিন</option>
+          <option value="More than 15">More than 15 days / ১৫ দিনের বেশি</option>
+        </select>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─ SECTION E: Additional Info ─ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">E</div>
+      <div>
+        <div class="section-title">Factory &amp; Additional Information
+          <span class="section-title-bn">কারখানা ও অতিরিক্ত তথ্য</span>
+        </div>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="q">
+        <label>Factory size (number of workers) <span class="req">*</span><span class="bn">কারখানার আকার (শ্রমিক সংখ্যা)</span></label>
+        <select name="factory_size" required>
+          <option value="">— Select / নির্বাচন করুন —</option>
+          <option value="Small (under 200)">Small – under 200 workers / ছোট (২০০-এর কম)</option>
+          <option value="Medium (200–999)">Medium – 200 to 999 workers / মাঝারি (২০০–৯৯৯)</option>
+          <option value="Large (1000+)">Large – 1,000+ workers / বড় (১০০০+)</option>
+        </select>
+      </div>
+
+      <div class="q">
+        <label>Factory location (district) <span class="bn">কারখানার অবস্থান (জেলা)</span></label>
+        <select name="factory_district">
+          <option value="">— Select / নির্বাচন করুন —</option>
+          <option value="Dhaka">Dhaka / ঢাকা</option>
+          <option value="Gazipur">Gazipur / গাজীপুর</option>
+          <option value="Narayanganj">Narayanganj / নারায়ণগঞ্জ</option>
+          <option value="Chittagong">Chittagong / চট্টগ্রাম</option>
+          <option value="Savar/Ashulia">Savar / Ashulia / সাভার/আশুলিয়া</option>
+          <option value="Other">Other / অন্যান্য</option>
+        </select>
+      </div>
+
+      <div class="q">
+        <label>Does the factory have an on-site medical facility? <span class="bn">কারখানায় কি মেডিকেল সুবিধা আছে?</span></label>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="factory_medical" value="Yes, full clinic"> Yes, full clinic / হ্যাঁ, পূর্ণ ক্লিনিক</label>
+          <label class="radio-pill"><input type="radio" name="factory_medical" value="Yes, first aid only"> First aid only / শুধু প্রাথমিক চিকিৎসা</label>
+          <label class="radio-pill"><input type="radio" name="factory_medical" value="No"> No / না</label>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>Have you received any formal health and safety training at this factory? <span class="req">*</span><span class="bn">এই কারখানায় কি আপনি আনুষ্ঠানিক স্বাস্থ্য ও নিরাপত্তা প্রশিক্ষণ পেয়েছেন?</span></label>
+        <div class="radio-group col">
+          <label class="radio-pill"><input type="radio" name="safety_training" value="Yes, within the past year"> Yes — within the past year / হ্যাঁ — গত এক বছরে</label>
+          <label class="radio-pill"><input type="radio" name="safety_training" value="Yes, more than a year ago"> Yes — more than a year ago / হ্যাঁ — এক বছরের বেশি আগে</label>
+          <label class="radio-pill"><input type="radio" name="safety_training" value="No, never"> No, never / না, কখনোই না</label>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>Any additional comments about your health or working conditions? <span class="bn">স্বাস্থ্য বা কর্মপরিবেশ সম্পর্কে কোনো মন্তব্য?</span></label>
+        <textarea name="comments" placeholder="Optional / ঐচ্ছিক"></textarea>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─ Submit ─ -->
+  <div class="submit-section">
+    <p>
+      By submitting this form, you confirm your voluntary participation.
+      <span class="bn">ফর্ম জমা দিয়ে আপনি স্বেচ্ছায় অংশগ্রহণ নিশ্চিত করছেন।</span>
+    </p>
+    <button type="submit" class="btn-submit" id="submitBtn">
+      Submit Survey &nbsp; জমা দিন
+    </button>
+  </div>
+
+</form>
+</div>
+
+<!-- ── Success Overlay (temporary, then resets to home) ──────── -->
+<div id="success-overlay">
+  <div class="success-card">
+    <div class="success-icon">&#10003;</div>
+    <h2>Thank You!</h2>
+    <p class="bn-h">ধন্যবাদ আপনার অংশগ্রহণের জন্য</p>
+    <p>Your response has been saved securely. The next person can now fill in the survey.</p>
+    <div class="ref-box">Reference ID: <span id="refId">—</span></div>
+    <div class="countdown-bar-bg">
+      <div class="countdown-bar-fill" id="countdownBar"></div>
+    </div>
+    <div class="countdown-msg" id="countdownMsg">Returning to survey in 5 seconds…</div>
+  </div>
+</div>
+
+<!-- ── Toast ──────────────────────────────────────── -->
+<div id="toast"></div>
+
+<!-- ── Footer ─────────────────────────────────────── -->
+<footer class="site-footer">
+  <p>XAI for Worker Health &amp; Productivity Research &nbsp;·&nbsp; Bangladesh Garment Industry Study</p>
+  <p>Data is collected anonymously for academic purposes only &nbsp;·&nbsp; তথ্য শুধুমাত্র একাডেমিক গবেষণার জন্য সংগ্রহ করা হচ্ছে</p>
+</footer>
+
+<script>
+// ── CONFIG: Paste your Google Apps Script URL here ──────────────
+const APPS_SCRIPT_URL = "YOUR_APPS_SCRIPT_URL_HERE";
+// ────────────────────────────────────────────────────────────────
+
+// Show/hide injury body part field
+document.addEventListener('change', function(e) {
+  if (e.target.name === 'previous_injury') {
+    const show = e.target.value !== 'No, never';
+    document.getElementById('injury_detail_q').style.display = show ? 'block' : 'none';
+  }
+});
+
+// Consent gate
+function checkConsent() {
+  const checked = document.getElementById('consentCheck').checked;
+  document.getElementById('mainForm').style.display = checked ? 'block' : 'none';
+  window.scrollTo({ top: document.getElementById('mainForm').offsetTop - 80, behavior: 'smooth' });
+}
+
+// BMI calculator
+function calcBMI() {
+  const h = parseFloat(document.getElementById('heightInput').value);
+  const w = parseFloat(document.getElementById('weightInput').value);
+  if (h > 0 && w > 0) {
+    const bmi = (w / ((h / 100) ** 2)).toFixed(1);
+    let cat = '';
+    if (bmi < 18.5) cat = ' (Underweight)';
+    else if (bmi < 25) cat = ' (Normal)';
+    else if (bmi < 30) cat = ' (Overweight)';
+    else cat = ' (Obese)';
+    document.getElementById('bmiValue').textContent = bmi + cat;
+    document.getElementById('bmiHidden').value = bmi;
+    document.getElementById('bmiField').style.display = 'block';
+  }
+}
+
+// Progress bar
+function updateProgress() {
+  const required = document.querySelectorAll('[required]');
+  let filled = 0;
+  required.forEach(el => {
+    if (el.type === 'radio') {
+      const group = document.querySelectorAll(`[name="${el.name}"]:checked`);
+      if (group.length > 0) filled++;
+    } else if (el.value.trim()) filled++;
+  });
+  const total = new Set([...required].map(el => el.name)).size;
+  const pct = Math.round((filled / total) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+document.addEventListener('change', updateProgress);
+document.addEventListener('input', updateProgress);
+
+// Radio/checkbox pill highlight
+document.addEventListener('change', function(e) {
+  if (e.target.type === 'radio') {
+    const name = e.target.name;
+    document.querySelectorAll(`[name="${name}"]`).forEach(r => {
+      r.closest('.radio-pill')?.classList.remove('selected');
+    });
+    e.target.closest('.radio-pill')?.classList.add('selected');
+  }
+  if (e.target.type === 'checkbox') {
+    const pill = e.target.closest('.check-pill');
+    if (pill) pill.classList.toggle('selected', e.target.checked);
+  }
+});
+
+// Toast helper
+function showToast(msg, duration = 3500) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), duration);
+}
+
+// Generate reference ID
+function makeRef() {
+  return 'WH-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substr(2,4).toUpperCase();
+}
+
+// Collect checkbox values
+function getCheckboxValues(name) {
+  return Array.from(document.querySelectorAll(`[name="${name}"]:checked`)).map(el => el.value).join('; ') || 'None selected';
+}
+
+// Form submit
+document.getElementById('surveyForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const form = e.target;
+
+  // Unified validation — handles selects, inputs, and radio groups correctly
+  let valid = true;
+  let firstErrEl = null;
+
+  form.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+
+  const requiredNames = new Set(
+    [...form.querySelectorAll('[required]')].map(el => el.name).filter(Boolean)
+  );
+
+  requiredNames.forEach(name => {
+    const els = [...form.querySelectorAll('[name="' + name + '"]')];
+    if (!els.length) return;
+    const isRadio = els[0].type === 'radio';
+    const filled = isRadio
+      ? els.some(el => el.checked)
+      : els[0].value.trim() !== '';
+    if (!filled) {
+      valid = false;
+      if (!isRadio) {
+        els[0].classList.add('error');
+        if (!firstErrEl) firstErrEl = els[0];
+      } else if (!firstErrEl) {
+        firstErrEl = els[0].closest('.section') || els[0];
+      }
+    }
+  });
+
+  if (!valid) {
+    showToast('Please fill in all required fields · সকল প্রয়োজনীয় তথ্য পূরণ করুন');
+    if (firstErrEl) firstErrEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  // ── SHOW SUCCESS OVERLAY IMMEDIATELY ─────────────────────────────
+  // Do this FIRST before anything else — so the worker is NEVER stuck
+  // on "Submitting…" regardless of what happens next.
+  const refId = makeRef();
+  document.getElementById('refId').textContent = refId;
+  const overlay = document.getElementById('success-overlay');
+  overlay.classList.add('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Start countdown bar immediately
+  const DELAY = 5000;
+  const bar = document.getElementById('countdownBar');
+  const msg = document.getElementById('countdownMsg');
+  bar.style.transition = 'none';
+  bar.style.width = '100%';
+  requestAnimationFrame(() => {
+    bar.style.transition = 'width ' + DELAY + 'ms linear';
+    bar.style.width = '0%';
+  });
+  let remaining = Math.ceil(DELAY / 1000);
+  msg.textContent = 'Returning to survey in ' + remaining + ' seconds…';
+  const ticker = setInterval(function() {
+    remaining--;
+    msg.textContent = remaining > 0
+      ? 'Returning to survey in ' + remaining + ' second' + (remaining > 1 ? 's' : '') + '…'
+      : 'Resetting…';
+    if (remaining <= 0) clearInterval(ticker);
+  }, 1000);
+  setTimeout(function() {
+    overlay.classList.remove('show');
+    resetSurvey();
+  }, DELAY);
+
+  // ── BUILD PAYLOAD & SEND (in background, after overlay shown) ────
+  // Wrapped in try-catch so any JS error CANNOT freeze the UI.
+  try {
+    const gv  = function(name) { var el = document.querySelector('[name="' + name + '"]:checked'); return el ? el.value : ''; };
+    const phq4_total = ['phq4_1','phq4_2','phq4_3','phq4_4'].reduce(function(s,n) {
+      var el = document.querySelector('[name="' + n + '"]:checked');
+      return s + (el ? parseInt(el.value) : 0);
+    }, 0);
+
+    var payload = {
+      timestamp:             new Date().toISOString(),
+      reference_id:          refId,
+      age:                   form.age ? form.age.value : '',
+      sex:                   form.sex ? form.sex.value : '',
+      height_cm:             form.height_cm ? form.height_cm.value : '',
+      weight_kg:             form.weight_kg ? form.weight_kg.value : '',
+      bmi:                   (document.getElementById('bmiHidden') || {}).value || '',
+      rmg_experience_years:  form.rmg_experience_years ? form.rmg_experience_years.value : '',
+      current_factory_years: form.current_factory_years ? form.current_factory_years.value : '',
+      education:             form.education ? form.education.value : '',
+      monthly_income_bdt:    form.monthly_income_bdt ? form.monthly_income_bdt.value : '',
+      marital_status:        gv('marital_status'),
+      dependants:            form.dependants ? form.dependants.value : '',
+      job_section:           form.job_section ? form.job_section.value : '',
+      shift_type:            form.shift_type ? form.shift_type.value : '',
+      daily_work_hours:      form.daily_work_hours ? form.daily_work_hours.value : '',
+      weekly_overtime_hours: form.weekly_overtime_hours ? form.weekly_overtime_hours.value : '',
+      daily_break_minutes:   form.daily_break_minutes ? form.daily_break_minutes.value : '',
+      heat_level:            gv('heat_level'),
+      noise_level:           gv('noise_level'),
+      work_posture:          form.work_posture ? form.work_posture.value : '',
+      repetitive_movement:   form.repetitive_movement ? form.repetitive_movement.value : '',
+      commute_time:          gv('commute_time'),
+      ppe_used:              getCheckboxValues('ppe'),
+      work_satisfaction:     gv('work_satisfaction'),
+      pain_areas:            getCheckboxValues('pain_area'),
+      pain_level:            gv('pain_level'),
+      medical_visits_6mo:    form.medical_visits_6mo ? form.medical_visits_6mo.value : '',
+      absent_days_3mo:       form.absent_days_3mo ? form.absent_days_3mo.value : '',
+      resp_symptom_freq:     gv('resp_symptom_freq'),
+      resp_worse_at_work:    gv('resp_worse_at_work'),
+      dust_exposure:         gv('dust_exposure'),
+      heat_illness_freq:     gv('heat_illness_freq'),
+      heat_fainted:          gv('heat_fainted'),
+      dehydration_freq:      gv('dehydration_freq'),
+      skin_symptoms:         getCheckboxValues('skin_symptoms'),
+      chemical_contact:      gv('chemical_contact'),
+      eye_strain_freq:       gv('eye_strain_freq'),
+      vision_deterioration:  gv('vision_deterioration'),
+      tinnitus_freq:         gv('tinnitus_freq'),
+      meals_skipped:         gv('meals_skipped'),
+      hunger_at_work:        gv('hunger_at_work'),
+      menstrual_irregularity:gv('menstrual_irregularity'),
+      pelvic_pain_at_work:   gv('pelvic_pain_at_work'),
+      diagnoses:             getCheckboxValues('diagnosis'),
+      phq4_anxiety_1:        gv('phq4_1'),
+      phq4_anxiety_2:        gv('phq4_2'),
+      phq4_depression_3:     gv('phq4_3'),
+      phq4_depression_4:     gv('phq4_4'),
+      phq4_total_score:      phq4_total,
+      smoking:               gv('smoking'),
+      canteen_use:           gv('canteen_use'),
+      sleep_hours:           form.sleep_hours ? form.sleep_hours.value : '',
+      previous_injury:       gv('previous_injury'),
+      injury_body_part:      form.injury_body_part ? form.injury_body_part.value : '',
+      target_achievement:    gv('target_achievement'),
+      pain_impact_work:      gv('pain_impact_work'),
+      defect_frequency:      form.defect_frequency ? form.defect_frequency.value : '',
+      end_of_day_feeling:    form.end_of_day_feeling ? form.end_of_day_feeling.value : '',
+      reduced_pace_health:   gv('reduced_pace_health'),
+      presenteeism_days:     form.presenteeism_days ? form.presenteeism_days.value : '',
+      factory_size:          form.factory_size ? form.factory_size.value : '',
+      factory_district:      form.factory_district ? form.factory_district.value : '',
+      factory_medical:       gv('factory_medical'),
+      safety_training:       gv('safety_training'),
+      comments:              form.comments ? form.comments.value : '',
+      illness_physical:      getCheckboxValues('illness_physical'),
+      illness_skin:          getCheckboxValues('illness_skin'),
+      illness_mental:        getCheckboxValues('illness_mental'),
+      illness_injury:        getCheckboxValues('illness_injury'),
+      illness_women:         getCheckboxValues('illness_women')
+    };
+
+    if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
+      console.table(payload);
+      console.log('[Demo] Ref:', refId);
+    } else {
+      var ctrl = new AbortController();
+      var tid = setTimeout(function() { ctrl.abort(); }, 10000);
+      fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        keepalive: true,
+        signal: ctrl.signal,
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload)
+      })
+      .then(function() { clearTimeout(tid); })
+      .catch(function(err) {
+        clearTimeout(tid);
+        if (err.name !== 'AbortError') console.warn('[Survey]', err.message);
+      });
+    }
+  } catch(err) {
+    // Even if payload building fails, the worker already saw the success screen.
+    // Log silently — never block the UI.
+    console.error('[Survey] Payload error (data may be incomplete):', err.message);
+  }
+});
+
+// ── Illness accordion ─────────────────────────────────────────────
+function toggleCat(id) {
+  var header = document.querySelector('#' + id + ' .ill-cat-header');
+  var body   = document.getElementById('body-' + id);
+  var open   = header.classList.contains('open');
+  header.classList.toggle('open', !open);
+  body.classList.toggle('open', !open);
+}
+
+function updCnt(catId, name) {
+  var n = document.querySelectorAll('[name="' + name + '"]:checked').length;
+  document.getElementById('cnt-' + catId.replace('cat-','')).textContent = n;
+  // highlight pill
+  document.querySelectorAll('[name="' + name + '"]').forEach(function(el) {
+    el.closest('.ill-pill').classList.toggle('selected', el.checked);
+  });
+}
+
+// Full survey reset — returns to the very top (home) of the survey
+function resetSurvey() {
+  // Reset the HTML form (clears all inputs, selects, textareas)
+  document.getElementById('surveyForm').reset();
+
+  // Uncheck consent and hide the main form
+  document.getElementById('consentCheck').checked = false;
+  document.getElementById('mainForm').style.display = 'none';
+
+  // Reset BMI display
+  document.getElementById('bmiValue').textContent = '—';
+  document.getElementById('bmiHidden').value = '';
+
+  // Remove all .selected highlights from radio/check pills
+  document.querySelectorAll('.radio-pill.selected, .check-pill.selected, .ill-pill.selected')
+    .forEach(el => el.classList.remove('selected'));
+  // Reset illness accordion counters
+  ['a','b','c','d','e'].forEach(function(x) {
+    var el = document.getElementById('cnt-' + x);
+    if (el) el.textContent = '0';
+    var hdr = document.querySelector('#cat-' + x + ' .ill-cat-header');
+    var bdy = document.getElementById('body-cat-' + x);
+    if (hdr) hdr.classList.remove('open');
+    if (bdy) bdy.classList.remove('open');
+  });
+
+  // Remove all .error highlights
+  document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+
+  // Reset progress bar
+  document.getElementById('progressFill').style.width = '0%';
+
+  // Re-enable submit button
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = false;
+  btn.textContent = 'Submit Survey \u00a0 জমা দিন';
+
+  // Scroll to very top smoothly
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
